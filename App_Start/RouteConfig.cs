@@ -15,8 +15,14 @@ namespace Лаба2
 
             routes.MapRoute(
                 name: "Api",
-                url: "Api/{action}",
-                defaults: new { controller = "Api", action = "Index" }
+                url: "Api/{action}/{id}",
+                defaults: new { controller = "Api", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Admin",
+                url: "Admin/{action}/{id}",
+                defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

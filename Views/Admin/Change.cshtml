@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "Change";
+}
+
+@model Лаба2.Models.Car
+
+<link href="~/Content/styles/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/styles/kendo.default.min.css" rel="stylesheet" />
+<link href="~/Content/styles/kendo.default.mobile.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<base href="/" />
+
+<div id="view">
+
+
+  
+
+
+
+    <form role="form" class="col-md-6" method="post" action="Api/Change/@Model.Id" enctype="multipart/form-data">
+
+        <h4><label for="marks">Выберите марку</label></h4>
+        <input required="" id="marks" name="Mark" data-role="autocomplete" data-bind="value: mark, source: marks,  events: {
+                                change: onSelect
+                              }" style="width: 100%;" />
+
+        <h4><label for="models">Выберите модель</label></h4>
+        <input required="" id="models" name="Model" data-bind="value: model, source:resultModels " data-role="autocomplete" style="width: 100%;" />
+
+
+        <button type="button" data-bind="click: show" id="kendoIconButton">
+            <span class="k-icon k-i-plus"></span>
+        </button>
+
+
+        <div id="addModel" data-bind="visible: isVisible">
+            <input id="newModel" type="text" data-bind="value: newModel" class="k-textbox" style="width: 100%;" />
+            <button class="k-button " data-bind="click: fill">Добавить</button>
+        </div>
+
+
+        <h4>Год выпуска</h4>
+        <input required="" id="year" data-bind="value: year" name="Year" data-role="slider" class="balSlider" max="2017" min="1950" value="0"
+               title="slider" />
+
+
+        <h4>Цена</h4>
+        <input required="" id="cost" data-bind="value: cost" name="Cost" data-role="slider" class="balSlider" max="9999999" value="0"
+               title="slider" />
+
+
+
+
+        <h4><label for="valuta">Валюта</label></h4>
+        <input id="valuta" name="Valuta" data-bind="value: valuta, source: valutas" data-role="dropdownlist" value="1"
+               style="width: 100%;" />
+
+        <div class="settings-head"></div>
+        <h4> Трансмиссия</h4>
+        <input type="checkbox" name="Transmission" id="transmission" data-role="switch"
+               data-bind="checked: transmission" aria-label="Notifications Switch"
+               checked="checked" />
+        <label for="transmission">Автоматика</label>
+
+        <h4>Тип топлива</h4>
+
+
+        <input type="radio" value="Дизель" class="k-radio" id="type1" name="Type" data-bind="checked: type" />
+        <label class="k-radio-label" for="type1">Дизель</label>
+        <input type="radio" value="Бензин" class="k-radio" id="type2" name="Type" data-bind="checked: type" />
+        <label class="k-radio-label" for="type2">Бензин</label>
+        <input type="radio" value="Газ" class="k-radio" id="type3" name="Type" data-bind="checked: type" />
+        <label class="k-radio-label" for="type3">Газ</label>
+
+
+        <h4>Состояние</h4>
+
+
+        <input type="radio" value="Новое" class="k-radio" id="type11" name="State" data-bind="checked: state" />
+        <label class="k-radio-label" for="type1">Новое</label>
+        <input type="radio" value="Хорошее" class="k-radio" id="type22" name="State" data-bind="checked: state" />
+        <label class="k-radio-label" for="type2">Хорошее</label>
+        <input type="radio" value="Плохое" class="k-radio" id="type33" name="State" data-bind="checked: state" />
+        <label class="k-radio-label" for="type3">Плохое</label>
+
+
+        <p class="title">Пробег</p>
+        <label>
+            <input required="" name="Mileage" id="mileage" data-role="numerictextbox"
+                   data-format="n"
+                   data-min="0"
+                   data-max="999999"
+                   step="1"
+                   data-bind="value: mileage" type="number" title="currency" style="width: 100%;" />
+        </label>
+
+        <p class="title">Объём двигателя</p>
+        <label>
+            <input required="" name="Amount" id="amount" data-role="numerictextbox"
+                   data-format="n"
+                   data-min="0"
+                   data-max="5"
+                   step="0.1"
+                   data-bind="value: amount" type="number" title="currency" style="width: 100%;" />
+        </label>
+
+        <input name="File" id="file" type="file" required="">
+
+
+
+
+        <br />
+        <button class="btn btn-default" type="submit">Изменить</button>
+    </form>
+
+
+
+</div>
+
+
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/kendo.all.min.js"></script>
+<script src="~/Scripts/IndexAdmin.js"></script>
+<script src="~/Scripts/IndexUser.js"></script>
+<script>
+    model.set("mark","@Model.Mark");
+    model.set("model","@Model.Model");
+    model.set("year",@Model.Year);
+    model.set("cost",@Model.Cost);
+    @{ 
+        string check = "true";
+        if (Model.Transmission== "Автоматика")
+        {
+            check = "true";
+        }
+        else
+        {
+            check = "false";
+        }
+    }
+    model.set("transmission",@check);
+    model.set("type","@Model.Type");
+    model.set("state","@Model.State");
+    model.set("amount",@Model.Amount);
+     model.set("mileage",@Model.Mileage);
+</script>
+
+
+
+

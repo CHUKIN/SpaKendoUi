@@ -9,6 +9,138 @@ namespace Лаба2.Controllers
 {
     public class ApiController : Controller
     {
+        LabaContext db = new LabaContext();
+
+        public ActionResult GetCar(int id)
+        {
+           
+            return Json(db.Cars.Find(id), JsonRequestBehavior.AllowGet);
+        }
+
+       
+
+        public ActionResult GetMarks()
+        {
+            List<string> listMarks = new List<string>();
+            listMarks.Add("Лифан");
+            listMarks.Add("Нисан");
+            return Json(listMarks, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetModels()
+        {
+            List<object> listMarks = new List<object>();
+
+            Dictionary<string, List<string>> listModels = new Dictionary<string, List<string>>();            
+            listModels.Add("Лифан", new List<string> { "Новая1", "Старая1" });
+            listModels.Add("Нисан", new List<string> { "Новая2", "Старая2" });
+            return Json(listModels, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Search(Car car)
+        {
+          if (car.Mark==null)
+            {
+                car.Mark = "";
+            }
+          if(car.Model==null)
+            {
+                car.Model = "";
+            }
+          if(car.Transmission=="on")
+            {
+                car.Transmission = "Автоматика";
+            }
+            if (car.Transmission == "off")
+            {
+                car.Transmission = "Ручное";
+            }
+            if(car.Cost==0)
+            {
+                car.Cost = 999999999;
+            }
+            if(car.Mileage==0)
+            {
+                car.Mileage = 9999999999;
+            }
+            if(car.Type==null)
+            {
+                car.Type = "";
+            }
+            return Json(db.Cars.Where(i => i.Cost <= car.Cost && i.Mark.Contains(car.Mark) && i.Mileage <= car.Mileage && i.Model.Contains(car.Model) && i.Type.Contains(car.Type)&&i.Year>=car.Year), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Change(Car car, HttpPostedFileBase File)
+        {
+            var oldCar = db.Cars.Find(car.Id);
+            oldCar.Cost = car.Cost;
+            oldCar.Amount = car.Amount;
+            oldCar.Mark = car.Mark;
+            oldCar.Mileage = car.Mileage;
+            oldCar.Model = car.Model;
+            oldCar.State = car.State;
+            oldCar.Type = car.Type;
+            oldCar.Watch = car.Watch;
+            oldCar.Year = car.Year;
+          
+            File.SaveAs(Server.MapPath("~/Files/" + oldCar.Id + File.FileName));
+            oldCar.PhotoUrl = "../Files/" + oldCar.Id + File.FileName;
+            if (oldCar.Transmission == "on")
+            {
+                oldCar.Transmission = "Автоматика";
+            }
+            else
+            {
+                oldCar.Transmission = "Ручное";
+            }
+            db.SaveChanges();
+            return Redirect("/Admin");
+        }
+
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            db.Cars.Remove(db.Cars.Find(id));
+            db.SaveChanges();
+            return Redirect("/Admin");
+        }
+
+        [HttpPost]
+        public ActionResult Create(Car car, HttpPostedFileBase File)
+        {
+            
+            db.Cars.Add(car);
+            
+            db.SaveChanges();
+            File.SaveAs(Server.MapPath("~/Files/" + car.Id + File.FileName));
+            car.PhotoUrl = "../Files/" + car.Id + File.FileName;
+            if (car.Transmission == "on")
+            {
+                car.Transmission = "Автоматика";
+            }
+            else
+            {
+                car.Transmission = "Ручное";
+            }
+            db.SaveChanges();
+            return Redirect("/Admin");
+        }
+
+
+        public ActionResult GetMostPopularCars()
+        {
+
+            return Json(db.Cars.OrderByDescending(i=>i.Watch).Take(25), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetCars()
+        {
+            return Json(db.Cars, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Index()
         {
             return Content("Api");

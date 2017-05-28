@@ -72,3 +72,9 @@ C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\bin\ru\System.Web.WebPage
 C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\obj\Debug\Лаба2.csprojResolveAssemblyReference.cache
 C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\obj\Debug\Лаба2.dll
 C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\obj\Debug\Лаба2.pdb
+C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\bin\EntityFramework.dll
+C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\bin\EntityFramework.SqlServer.dll
+C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\bin\EntityFramework.xml
+C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\bin\EntityFramework.SqlServer.xml
+C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\obj\Debug\Лаба2.Migrations._1.resources
+C:\Users\CHUKIN\Desktop\Курсы\Лаба2\Лаба2\obj\Debug\Лаба2.csproj.GenerateResource.Cache

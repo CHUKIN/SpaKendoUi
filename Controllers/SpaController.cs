@@ -12,6 +12,5 @@ namespace Лаба2.Controllers
         {
             return View();
         }
-
     }
 }
