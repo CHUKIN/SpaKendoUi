@@ -1,2 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters />
+<parameters>
+  <parameter name="LabaContext-Web.config Connection String" description="LabaContext Строка подключения в web.config, используемая приложением для доступа к базе данных." defaultValue="Data Source=katedb.database.windows.net;Initial Catalog=KateDb;Integrated Security=False;User ID=CHUKIN;Password=Q80508822002q;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False;MultipleActiveResultSets=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\CHUKIN\\Desktop\\Лаба2\\Лаба2\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='LabaContext']/@connectionString" />
+  </parameter>
+</parameters>

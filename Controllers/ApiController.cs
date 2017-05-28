@@ -13,7 +13,8 @@ namespace Лаба2.Controllers
 
         public ActionResult GetCar(int id)
         {
-           
+            db.Cars.Find(id).Watch++;
+            db.SaveChanges();
             return Json(db.Cars.Find(id), JsonRequestBehavior.AllowGet);
         }
 

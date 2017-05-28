@@ -9,120 +9,248 @@
     <link href="~/Content/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="~/Content/styles/kendo.default.min.css" rel="stylesheet" />
     <link href="~/Content/styles/kendo.default.mobile.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <base href="/"/>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <div id="app"></div>
+            <div id="appAdmin"></div>
+        </div>
+
+        <div class="col-sm-1"></div>
+    </div>
+
+    <script id="indexUser" type="text/x-kendo-template">
+        <section id='content'>
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <ul class="nav navbar-nav">
+                                <li> <a href="#/">Главная страница</a></li>
+                                <li><a href="#/search">Поиск</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+        </section>
+    </script>
+
+  
+
+
+    <script type="text/x-kendo-tmpl" id="templateMostPopularCarsView">
+            <div class="col-sm-2">
+                        <table class="table table-bordered" data-bind="events: {click : showCar}">
+                            <tbody>
+                                <tr>
+                                    <td>Марка: #:Mark#</td>
+                                    <td>Модель: #:Model#</td>
+                                    <td>Цена: #:Cost#</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Состояние: #:State#</td>
+                                    <td>Объём: #:Amount#</td>
+                                    <td>Пробег: #:Mileage#</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Передача: #:Transmission#</td>
+                                    <td>Год: #:Year#</td>
+                                    <td><img src="#:PhotoUrl#" width="100" height="100" /></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+    </script>
+
+    <script type="text/x-kendo-tmpl" id="templateCarsView">
+        <div class="product-view k-widget">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-bordered" data-bind="events: {click : showCar}">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Марка</th>
+                                <th>Модель</th>
+                                <th>Цена</th>
+                                <th>Тип</th>
+                                <th>Состояние</th>
+                                <th>Объём</th>
+                                <th>Пробег</th>
+                                <th>Просмотры</th>
+                                <th>Передача</th>
+                                <th>Год</th>
+                                <th>Картинка</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#:Id#</td>
+                                <td>#:Mark#</td>
+                                <td>#:Model#</td>
+                                <td>#:Cost#</td>
+                                <td>#:Type#</td>
+                                <td>#:State#</td>
+                                <td>#:Amount#</td>
+                                <td>#:Mileage#</td>
+                                <td>#:Watch#</td>
+                                <td>#:Transmission#</td>
+                                <td>#:Year#</td>
+                                <td><img src="#:PhotoUrl#" width="100" height="100" /></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+    <script id="main" type="text/x-kendo-template">
+                <div data-role="listview"
+                     data-template="templateMostPopularCarsView"
+                     data-bind="source: mostPopularCars">
+                </div>
+    </script>
+
+    <script id="car" type="text/x-kendo-template">
+        <div class="panel panel-default" >
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Марка</th>
+                            <th>Модель</th>
+                            <th>Цена</th>
+                            <th>Тип</th>
+                            <th>Состояние</th>
+                            <th>Объём</th>
+                            <th>Пробег</th>
+                            <th>Просмотры</th>
+                            <th>Передача</th>
+                            <th>Год</th>
+                            <th>Картинка</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-bind="text: car.Id"></td>
+                            <td data-bind="text: car.Mark"></td>
+                            <td data-bind="text: car.Model"></td>
+                            <td data-bind="text: car.Cost"></td>
+                            <td data-bind="text: car.Type"></td>
+                            <td data-bind="text: car.State"></td>
+                            <td data-bind="text: car.Amount"></td>
+                            <td data-bind="text: car.Mileage"></td>
+                            <td data-bind="text: car.Watch"></td>
+                            <td data-bind="text: car.Transmission"></td>
+                            <td data-bind="text: car.Year"></td>
+                            <td ><img data-bind="attr: { src: car.PhotoUrl} " width="100" height="100"/></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </script>
+
+    <script id="search" type="text/x-kendo-template">
+        <div class="row">
+            <div class="col-sm-8">
+                <div data-role="listview"
+                     data-template="templateCarsView"
+                     data-bind="source: cars">
+                </div>
+                <div id="pager" data-role="pager" data-bind="source: cars" data-auto-bind="false"></div>
+            </div>
+            <div class="col-sm-4">
+                    
+
+                <div id="view">
+                    <h4><label for="marks">Выберите марку</label></h4>
+                    <input id="marks" data-role="autocomplete" data-bind="value: mark, source: marks,  events: {
+                                change: onSelect
+                              }" style="width: 100%;" />
+
+                    <h4><label for="models">Выберите модель</label></h4>
+                    <input id="models" data-bind="value: model, source:resultModels " data-role="autocomplete" style="width: 100%;" />
+
+
+                    <h4>Минимальный Год выпуска</h4>
+                    <input id="year" data-bind="value: year" data-role="slider" class="balSlider" max="2017" min="1950" value="1950"
+                           title="slider" />
+
+
+                    <h4>Максимальная Цена</h4>
+                    <input id="cost" value="9999" data-bind="value: cost" data-role="slider" class="balSlider" max="9999999"
+                           title="slider" />
+
+
+
+                    <h4><label for="valuta">Валюта</label></h4>
+                    <input id="valuta" data-bind="value: valuta, source: valutas" data-role="dropdownlist" value="1"
+                           style="width: 100%;" />
+
+                    <div class="settings-head"></div>
+                    <h4> Трансмиссия</h4>
+                    <input type="checkbox" id="transmission" data-role="switch"
+                           data-bind="checked: transmission" aria-label="Notifications Switch"
+                           checked="checked" />
+                    <label for="transmission">Автоматика</label>
+
+                    <h4>Тип топлива</h4>
+
+
+                    <input type="radio" value="Дизель" class="k-radio" id="type1" name="engine" data-bind="checked: type" />
+                    <label class="k-radio-label" for="type1">Дизель</label>
+                    <input type="radio" value="Бензин" class="k-radio" id="type2" name="engine" data-bind="checked: type" />
+                    <label class="k-radio-label" for="type2">Бензин</label>
+                    <input type="radio" value="Газ" class="k-radio" id="type3" name="engine" data-bind="checked: type" />
+                    <label class="k-radio-label" for="type3">Газ</label>
+
+
+                    <p class="title">Максимальный Пробег</p>
+                    <label>
+                        <input id="mileage" value="999999999" data-role="numerictextbox"
+                               data-format="n"
+                               data-min="0"
+                               data-max="999999"
+                               step="1"
+                               data-bind="value: mileage" type="number" title="currency" style="width: 100%;" />
+                    </label>
+
+                    <p class="title">Минимальный Объём двигателя</p>
+                    <label>
+                        <input id="amount" data-role="numerictextbox"
+                               data-format="n"
+                               data-min="0"
+                               data-max="5"
+                               step="0.1"
+                               data-bind="value: amount" type="number" title="currency" style="width: 100%;" />
+                    </label>
+
+                    
+
+                        <br />
+                        <button class="btn btn-default" data-bind="click: onClick">Поиск</button>
+
+                </div>
+
+            </div>
+        </div>
+    </script>
+
 
 
     <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/kendo.all.min.js"></script>
-
-
-</head>
-<body>
-
-
-    <div id="example">
-        <h4>Типы марок</h4>
-        <div>
-            <div data-role="treemap"
-                 data-text-field="name"
-                 data-value-field="value"
-                 data-bind="source: marks"
-                 style="height: 200px;">
-            </div>
-        </div>
-
-        <div class="demo-section k-content">
-            <h4>Средняя цена марки</h4>
-            <div>
-                <div data-role="chart"
-                     data-series-defaults="{ type: 'pie' }"
-                     data-series="[{
-                                field: 'cost',
-                                categoryField: 'mark',
-                                padding: 0
-                              }]"
-                     data-bind="source: cars"
-                     style="height: 250px;"></div>
-            </div>
-        </div>
-
-        <h4>Зависимость цены от объёма двигателя и года выпуска</h4>
-        <div data-role="chart"
-             data-title="{ text: 'Зависимость цены от объёма двигателя и года выпуска', position: 'bottom' }"
-             data-legend="{ position: 'top' }"
-             data-series="[ {
-                                 type: 'bubble',
-                                 xField: 'year',
-                                 yField: 'amount',
-                                 sizeField: 'cost',
-                                 categoryField: 'state'
-                             }]"
-             data-bind="source: depend"
-             style="height: 250px;">
-        </div>
-
-        <h4>Цена в зависимости от года выпуска</h4>
-        <div data-role="chart"
-             data-legend="{ position: 'bottom' }"
-             data-series-defaults="{ type: 'line' }"
-             data-series="[
-                                 { field: 'cost', name: 'Цена' }
-                             ]"
-             data-bind="source: typeCar,"
-             style="height: 250px;">
-
-        </div>
-
-
-
-        <script>
-                var viewModel = kendo.observable({
-                    marks: new kendo.data.HierarchicalDataSource({
-                        transport: {
-                            read: {
-                                url: "../Api/Chart1",
-                                dataType: "json"
-                            }
-                        },
-                        schema: {
-                            model: {
-                                children: "items"
-                            }
-                        }
-                    }),
-                    cars: new kendo.data.DataSource({
-                        transport: {
-                            read: {
-                                url: "../Api/Chart2",
-                                dataType: "json"
-                            }
-                        }
-                    }),
-                    depend: new kendo.data.DataSource({
-                        transport: {
-                            read: {
-                                url: "../Api/Chart3",
-                                dataType: "json"
-                            }
-                        }
-                    }),
-                    typeCar: new kendo.data.DataSource({
-                        transport: {
-                            read: {
-                                url: "../Api/Chart4",
-                                dataType: "json"
-                            }
-                        },
-                        sort: {
-                            field: "year",
-                            dir: "asc"
-                        }
-                    })
-                });
-                kendo.bind($("#example"), viewModel);
-        </script>
-    </div>
-
-
-
+    <script src="~/Scripts/IndexUser.js"></script>
 </body>
 </html>
