@@ -112,7 +112,7 @@ namespace Лаба2.Controllers
         [HttpPost]
         public ActionResult Create(Car car, HttpPostedFileBase File)
         {
-            
+            car.Watch = 0;
             db.Cars.Add(car);
             
             db.SaveChanges();
