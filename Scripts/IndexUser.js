@@ -123,8 +123,7 @@ var model = kendo.observable({
 kendo.bind($("#view"), model);
 
 var router = new kendo.Router();
-        var layoutUser = new kendo.Layout('indexUser');
-        
+        var layoutUser = new kendo.Layout('indexUser');       
 
         var viewMain = new kendo.View("main",{model: model });
         var viewSearch = new kendo.View("search", { model: model });
@@ -140,9 +139,6 @@ var router = new kendo.Router();
             layoutUser.showIn("#content", viewMain);
         });
 
-      
-
-
         router.route("/search", function (params) {
             model.set("queryParams", params); 
             layoutUser.showIn("#content", viewSearch);
@@ -150,6 +146,7 @@ var router = new kendo.Router();
                 params,
                 function (data) {
                     model.set("cars", data);
+                    model.set("mark", params.mark);
                 });
         });
 
@@ -160,8 +157,6 @@ var router = new kendo.Router();
             });
             
         });
-
-       
 
         $(function () {
         router.start();

@@ -33,8 +33,8 @@ namespace Лаба2.Controllers
             List<object> listMarks = new List<object>();
 
             Dictionary<string, List<string>> listModels = new Dictionary<string, List<string>>();            
-            listModels.Add("Лифан", new List<string> { "Новая1", "Старая1" });
-            listModels.Add("Нисан", new List<string> { "Новая2", "Старая2" });
+            listModels.Add("Лифан", new List<string> { "Бриз", "LLL" });
+            listModels.Add("Нисан", new List<string> { "X1", "X2" });
             return Json(listModels, JsonRequestBehavior.AllowGet);
         }
 
